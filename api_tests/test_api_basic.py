@@ -9,7 +9,7 @@ def test_get_user_list(playwright: Playwright):
 
     api_request_context = playwright.request.new_context()
 
-    response = api_request_context.get(f"{os.getenv("API_URL")}?page=2")
+    response = api_request_context.get(f"{os.getenv('API_URL')}?page=2")
 
     assert response.ok, f"API failed! Status code: {response.status}"
     assert response.status == 200
@@ -59,7 +59,7 @@ def test_update_user(playwright: Playwright):
         "job" : "senior leader"
     }
 
-    response = api_request_context.put(f"{os.getenv("API_URL")}/2",data = payload)
+    response = api_request_context.put(f"{os.getenv('API_URL')}/2",data = payload)
 
     assert response.ok
     assert response.status == 200
@@ -76,7 +76,7 @@ def test_delete_user(playwright: Playwright):
     print("---> Request for delete user on server...")
     api_request_context = playwright.request.new_context()
 
-    response = api_request_context.delete(f"{os.getenv("API_URL")}/2")
+    response = api_request_context.delete(f"{os.getenv('API_URL')}/2")
 
     assert response.status == 204
     print("---> Server  returned success(204).")

@@ -11,4 +11,4 @@ def test_valid_login(page:Page):
     login_page = LoginPage(page)
     login_page.login(os.getenv("TEST_USER"),os.getenv("TEST_PASS"))
 
-    expect(page).to_have_url(f"{os.getenv("BASE_URL")}inventory.html")
+    expect(page).to_have_url(f"{os.getenv('BASE_URL')}inventory.html")

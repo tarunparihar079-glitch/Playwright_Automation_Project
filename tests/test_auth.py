@@ -18,7 +18,7 @@ def test_direct_dashboard(browser):
     context = browser.new_context(storage_state="auth.json")
     page = context.new_page()
 
-    page.goto(f"{os.getenv("BASE_URL")}inventory.html")
+    page.goto(f"{os.getenv('BASE_URL')}inventory.html")
 
-    expect(page).to_have_url(f"{os.getenv("BASE_URL")}inventory.html")
+    expect(page).to_have_url(f"{os.getenv('BASE_URL')}inventory.html")
     print("\nWithout login direct inventory")

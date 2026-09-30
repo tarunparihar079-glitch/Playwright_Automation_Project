@@ -27,7 +27,7 @@ def test_user_lifecycle_chaining(playwright:Playwright):
         "job":"matrix hacker"
     }
 
-    dynamic_url = f"{os.getenv("API_URL")}/{new_user_id}"
+    dynamic_url = f"{os.getenv('API_URL')}/{new_user_id}"
 
     put_response = api_request_context.put(dynamic_url,data=update_payload)
     assert put_response.status == 200
