@@ -1,11 +1,15 @@
 from playwright.sync_api import Playwright
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def test_get_user_list(playwright: Playwright):
     print("\n---> Sending request to the server...")
 
     api_request_context = playwright.request.new_context()
 
-    response = api_request_context.get("https://reqres.in/api/users?page=2")
+    response = api_request_context.get(f"{os.getenv("API_URL")}?page=2")
 
     assert response.ok, f"API failed! Status code: {response.status}"
     assert response.status == 200
@@ -31,7 +35,7 @@ def test_create_user(playwright: Playwright):
         "job" : "leader"
     }
 
-    response = api_request_context.post("https://reqres.in/api/users",data = payload)
+    response = api_request_context.post(os.getenv("API_URL"),data = payload)
 
     assert response.ok
     assert response.status == 201,f"New user not created! Status: {response.status}"
@@ -55,7 +59,7 @@ def test_update_user(playwright: Playwright):
         "job" : "senior leader"
     }
 
-    response = api_request_context.put("https://reqres.in/api/users/2",data = payload)
+    response = api_request_context.put(f"{os.getenv("API_URL")}/2",data = payload)
 
     assert response.ok
     assert response.status == 200
@@ -72,7 +76,7 @@ def test_delete_user(playwright: Playwright):
     print("---> Request for delete user on server...")
     api_request_context = playwright.request.new_context()
 
-    response = api_request_context.delete("https://reqres.in/api/users/2")
+    response = api_request_context.delete(f"{os.getenv("API_URL")}/2")
 
     assert response.status == 204
     print("---> Server  returned success(204).")

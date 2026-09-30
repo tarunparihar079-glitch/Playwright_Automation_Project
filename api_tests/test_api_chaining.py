@@ -1,4 +1,8 @@
 from playwright.sync_api import Playwright
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def test_user_lifecycle_chaining(playwright:Playwright):
     api_request_context = playwright.request.new_context()
@@ -9,7 +13,7 @@ def test_user_lifecycle_chaining(playwright:Playwright):
         "job":"the one"
     }
 
-    post_response = api_request_context.post("https://reqres.in/api/users",data = create_payload)
+    post_response = api_request_context.post(os.getenv("API_URL"),data = create_payload)
     assert post_response.status == 201
     
     post_data = post_response.json()
@@ -23,7 +27,7 @@ def test_user_lifecycle_chaining(playwright:Playwright):
         "job":"matrix hacker"
     }
 
-    dynamic_url = f"https://reqres.in/api/users/{new_user_id}"
+    dynamic_url = f"{os.getenv("API_URL")}/{new_user_id}"
 
     put_response = api_request_context.put(dynamic_url,data=update_payload)
     assert put_response.status == 200

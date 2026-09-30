@@ -1,3 +1,5 @@
 test-results/
+allure-results/
 --pycache--/
 .pytesr_cache/
+.env

@@ -1,11 +1,15 @@
 from playwright.sync_api import Page,expect
 from pages.login_page import LoginPage
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def test_save_session(page:Page):
-    page.goto("https://www.saucedemo.com/")
+    page.goto(os.getenv("BASE_URL"))
 
     login_page = LoginPage(page)
-    login_page.login("standard_user","secret_sauce")
+    login_page.login(os.getenv("TEST_USER"),os.getenv("TEST_PASS"))
 
     page.context.storage_state(path="auth.json")
     print(f"\nSession file auth.json saved")
@@ -14,7 +18,7 @@ def test_direct_dashboard(browser):
     context = browser.new_context(storage_state="auth.json")
     page = context.new_page()
 
-    page.goto("https://www.saucedemo.com/inventory.html")
+    page.goto(f"{os.getenv("BASE_URL")}inventory.html")
 
-    expect(page).to_have_url("https://www.saucedemo.com/inventory.html")
+    expect(page).to_have_url(f"{os.getenv("BASE_URL")}inventory.html")
     print("\nWithout login direct inventory")
