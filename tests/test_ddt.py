@@ -15,6 +15,6 @@ load_dotenv()
 def test_multiple_logins(page: Page, username, password):
     print(f"\n---> Test run for this user: {username}")
 
-    page.goto(os.getenv("BASE_URL"))
+    page.goto(os.getenv("BASE_URL").strip())
     login_page = LoginPage(page)
     login_page.login(username, password)
